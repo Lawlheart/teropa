@@ -4,6 +4,7 @@ import {expect} from 'chai';
 import reducer from '../src/reducer';
 
 describe('reducer', () => {
+
   it('handles SET_ENTRIES', () => {
     const initialState = Map();
     const action = {type: 'SET_ENTRIES', entries: ['Trainspotting']};
@@ -48,6 +49,7 @@ describe('reducer', () => {
     }));
   });
 
+
   it('has an initial state', () => {
     const action = {type: 'SET_ENTRIES', entries: ['Trainspotting']};
     const nextState = reducer(undefined, action);
@@ -71,5 +73,4 @@ describe('reducer', () => {
       winner: 'Trainspotting'
     }));
   });
-
 });
