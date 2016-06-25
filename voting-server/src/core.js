@@ -1,18 +1,10 @@
 import {List, Map} from 'immutable';
 
-// JUST FOR VISUALIZATION!
-// model = {
-//   entries: ['28 Days Later', '127 Hours', 'Millions', 'Slumdog'],
-//   vote: {
-//    pair: ['Trainspotting', 'Sunshine'],
-//    tally: {
-//      'Trainspotting': 5,
-//      'Sunshine': 7
-//    }
-//   }
-// }
+export const INITIAL_STATE = Map();
 
-export const INITIAL_STATE  = Map();
+export function setEntries(state, entries) {
+  return state.set('entries', List(entries));
+}
 
 function getWinners(vote) {
   if (!vote) return [];
@@ -24,22 +16,21 @@ function getWinners(vote) {
   else                       return [a, b];
 }
 
-export function setEntries(state, entries) {
-  return state.set('entries', List(entries));
-}
-
 export function next(state) {
-  const entries = state.get('entries').concat(getWinners(state.get('vote')));
-  if(entries.size === 1) {
-    return state.remove('vote').remove('entries').set('winner', entries.first());
+  const entries = state.get('entries')
+                       .concat(getWinners(state.get('vote')));
+  if (entries.size === 1) {
+    return state.remove('vote')
+                .remove('entries')
+                .set('winner', entries.first());
   } else {
     return state.merge({
-      vote: Map({ pair: entries.take(2) }),
+      vote: Map({pair: entries.take(2)}),
       entries: entries.skip(2)
     });
   }
 }
 
-export function vote(state, entry) {
-  return state.updateIn(['vote', 'tally', entry], 0, tally => tally + 1);
+export function vote(voteState, entry) {
+  return voteState.updateIn(['tally', entry], 0, tally => tally + 1); // function(tally) { return tally + 1}
 }
