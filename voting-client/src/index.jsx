@@ -8,6 +8,8 @@ import App from './components/App';
 import {ResultsContainer} from './components/Results';
 import {VotingContainer} from './components/Voting';
 
+require('./style.css');
+
 const store = createStore(reducer);
 store.dispatch({
   type: 'SET_STATE',
